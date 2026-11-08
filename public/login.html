@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-type="software" data-radius="soft" data-buttons="solid" data-motion>
+<html lang="ko" data-type="software" data-radius="soft" data-buttons="solid" data-motion>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -31,33 +31,32 @@
   --ly-scale: 0.96;
 }
 </style>
-
-<title>Log in: Hearthfile</title>
-<meta name="description" content="Sign in to your Hearthfile workspace.">
+<title>로그인: Hearthfile</title>
+<meta name="description" content="Hearthfile 워크스페이스에 로그인합니다.">
 </head>
 <body>
 
 <header class="nav">
   <div class="wrap nav__bar">
-    <a class="skip-link" href="#top">Skip to content</a>
+    <a class="skip-link" href="#top">본문으로 건너뛰기</a>
     <a class="nav__logo" href="index.html"><span class="mark mark--initial" aria-hidden="true">H</span>Hearthfile</a>
-    <nav class="nav__links" aria-label="Main">
-      <div class="nav__item"><a class="nav__link" href="index.html#features">Product</a></div>
-      <div class="nav__item"><a class="nav__link" href="tools.html">Tools</a></div>
-      <div class="nav__item"><a class="nav__link" href="reviews.html">Reviews</a></div>
-      <div class="nav__item"><a class="nav__link" href="search.html">Search</a></div>
-      <div class="nav__item"><a class="nav__link" href="account.html">Account</a></div>
+    <nav class="nav__links" aria-label="주 메뉴">
+      <div class="nav__item"><a class="nav__link" href="index.html#features">제품</a></div>
+      <div class="nav__item"><a class="nav__link" href="tools.html">도구</a></div>
+      <div class="nav__item"><a class="nav__link" href="reviews.html">리뷰</a></div>
+      <div class="nav__item"><a class="nav__link" href="search.html">검색</a></div>
+      <div class="nav__item"><a class="nav__link" href="account.html">계정</a></div>
     </nav>
-    <div class="nav__actions"><a class="nav__link" href="login.html">Log in</a></div>
-    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="Menu"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
+    <div class="nav__actions"><a class="nav__link" href="login.html">로그인</a></div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="메뉴"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button>
   </div>
 </header>
 <main id="top" class="wrap" style="padding-top:var(--s-8);padding-bottom:var(--s-8)">
-<div class="page-head"><h1>Log in</h1><p class="lead-line">Use the username and password from your invitation.</p></div>
+<div class="page-head"><h1>로그인</h1><p class="lead-line">초대 메일에 받은 아이디와 비밀번호를 입력하세요.</p></div>
 <form class="panel-card narrow" id="f">
-  <div class="field"><label for="u">Username</label><input id="u" name="username" autocomplete="username" required></div>
-  <div class="field"><label for="p">Password</label><input id="p" name="password" type="password" autocomplete="current-password" required></div>
-  <button class="btn btn--primary" type="submit">Log in</button>
+  <div class="field"><label for="u">아이디</label><input id="u" name="username" autocomplete="username" required></div>
+  <div class="field"><label for="p">비밀번호</label><input id="p" name="password" type="password" autocomplete="current-password" required></div>
+  <button class="btn btn--primary" type="submit">로그인</button>
   <p class="form-status" id="st" role="status"></p>
 </form>
 </main>
@@ -65,17 +64,17 @@
 <footer class="footer closing" aria-labelledby="foot-h">
   <div class="wrap closing__links">
     <div class="grid">
-      <div class="span-4 stack-4"><a class="nav__logo" href="index.html"><span class="mark mark--initial" aria-hidden="true">H</span>Hearthfile</a><p class="footer__lede">File sharing for small teams.</p></div>
-      <div class="span-2 footer__col"><h3 id="foot-h">Product</h3><ul><li><a href="index.html#features">Features</a></li><li><a href="tools.html">Tools</a></li></ul></div>
-      <div class="span-2 footer__col"><h3>Customers</h3><ul><li><a href="reviews.html">Reviews</a></li><li><a href="search.html">Search</a></li></ul></div>
-      <div class="span-2 footer__col"><h3>Account</h3><ul><li><a href="login.html">Log in</a></li><li><a href="account.html">Account</a></li></ul></div>
+      <div class="span-4 stack-4"><a class="footer__brand" href="index.html">Hearthfile</a><p class="footer__lede">소규모 팀을 위한 파일 공유.</p></div>
+      <div class="span-2 footer__col"><h3 id="foot-h">제품</h3><ul><li><a href="index.html#features">기능</a></li><li><a href="tools.html">도구</a></li></ul></div>
+      <div class="span-2 footer__col"><h3>고객</h3><ul><li><a href="reviews.html">리뷰</a></li><li><a href="search.html">검색</a></li></ul></div>
+      <div class="span-2 footer__col"><h3>계정</h3><ul><li><a href="login.html">로그인</a></li><li><a href="account.html">계정</a></li></ul></div>
     </div>
     <div class="footer__legal"><span>&copy; 2026 Hearthfile</span></div>
   </div>
 </footer>
 <script>document.getElementById('f').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const f = e.target; const st = document.getElementById('st'); st.textContent = 'Checking…';
+  const f = e.target; const st = document.getElementById('st'); st.textContent = '확인 중…';
   const r = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username: f.username.value, password: f.password.value }) });
   const d = await r.json();

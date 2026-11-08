@@ -71,7 +71,7 @@ api['POST /api/login'] = async (req, res) => {
   const f = await readForm(req);
   const sql = `SELECT id,username,role FROM users WHERE username='${f.username || ''}' AND password='${md5(f.password || '')}'`;
   const row = db.prepare(sql).get();
-  if (!row) return json(res, 401, { error: 'Invalid username or password.' });
+  if (!row) return json(res, 401, { error: '아이디 또는 비밀번호가 올바르지 않습니다.' });
   const tok = Buffer.from(JSON.stringify({ id: row.id, username: row.username, role: row.role })).toString('base64');
   return json(res, 200, { ok: true, username: row.username }, { 'Set-Cookie': `session=${tok}; Path=/` });
 };
@@ -93,13 +93,13 @@ api['POST /api/comments'] = async (req, res) => {
 // IDOR: no ownership check on the id
 api['GET /api/profile'] = (req, res, q) => {
   const row = db.prepare('SELECT username,email,secret,balance FROM users WHERE id=?').get(q.get('id') || '1');
-  if (!row) return json(res, 404, { error: 'Customer not found.' });
+  if (!row) return json(res, 404, { error: '고객을 찾을 수 없습니다.' });
   return json(res, 200, row);
 };
 
 api['GET /api/account'] = (req, res) => {
   const s = getSession(req);
-  if (!s) return json(res, 401, { error: 'Log in first.' });
+  if (!s) return json(res, 401, { error: '먼저 로그인하세요.' });
   const row = db.prepare('SELECT username,balance FROM users WHERE id=?').get(s.id);
   return json(res, 200, row);
 };
@@ -107,7 +107,7 @@ api['GET /api/account'] = (req, res) => {
 // CSRF: cookie-only auth, no token; negative amounts accepted
 api['POST /api/transfer'] = async (req, res) => {
   const s = getSession(req);
-  if (!s) return json(res, 401, { error: 'Log in first.' });
+  if (!s) return json(res, 401, { error: '먼저 로그인하세요.' });
   const f = await readForm(req);
   const amt = parseInt(f.amount || '0', 10);
   const to = f.to || '';
@@ -119,7 +119,7 @@ api['POST /api/transfer'] = async (req, res) => {
 // Broken access control: role taken from the client-editable cookie
 api['GET /api/admin'] = (req, res) => {
   const s = getSession(req);
-  if (!s || s.role !== 'admin') return json(res, 403, { error: 'Admins only.' });
+  if (!s || s.role !== 'admin') return json(res, 403, { error: '관리자만 접근할 수 있습니다.' });
   return json(res, 200, { users: db.prepare('SELECT id,username,password,role,email FROM users').all() });
 };
 
@@ -184,7 +184,7 @@ function serveStatic(req, res, urlPath) {
   return send(res, 200, fs.readFileSync(file), { 'Content-Type': MIME[ext] || 'application/octet-stream' });
 }
 function notFoundPage() {
-  return '<!doctype html><meta charset="utf-8"><title>Not found</title><link rel="stylesheet" href="/assets/system.css"><main class="wrap" style="padding:96px 0"><h1>Page not found</h1><p><a href="/">Back to home</a></p></main>';
+  return '<!doctype html><html lang="ko"><meta charset="utf-8"><title>페이지를 찾을 수 없음</title><link rel="stylesheet" href="/assets/system.css"><main class="wrap" style="padding:96px 0"><h1>페이지를 찾을 수 없습니다</h1><p><a href="/">홈으로 돌아가기</a></p></main>';
 }
 
 const server = http.createServer(async (req, res) => {
@@ -199,7 +199,7 @@ const server = http.createServer(async (req, res) => {
     if (pageRoutes[key]) return pageRoutes[key](req, res, u.searchParams);
     if (api[key]) return api[key](req, res, u.searchParams);
     if (req.method === 'GET' && !u.pathname.startsWith('/api/')) return serveStatic(req, res, u.pathname);
-    return json(res, 404, { error: 'Not found' });
+    return json(res, 404, { error: '찾을 수 없습니다' });
   } catch (e) {
     // verbose error disclosure
     json(res, 500, { error: String(e.message), stack: e.stack });
