@@ -1,0 +1,30 @@
+/* App-page styles for the vulnerable pages. Uses the kit's tokens only (--p-*, --s-*, --r-*). */
+.page-head { padding-top: var(--s-4); }
+.page-head h1 { margin: 0 0 var(--s-3); font-size: clamp(32px, 4vw, 48px); line-height: 1.08; letter-spacing: -0.02em; }
+.lead-line { color: var(--p-muted); margin: 0 0 var(--s-6); max-width: 62ch; }
+.panel-card { background: var(--p-surface); border-radius: var(--r-lg); padding: var(--s-6); max-width: 560px; }
+.field { display: grid; gap: var(--s-2); margin-bottom: var(--s-4); }
+.field label { font-size: 14px; font-weight: 500; }
+.field input, .field textarea {
+  font: 400 16px/1.4 var(--font-text); color: var(--p-ink); background: var(--p-bg);
+  border: 1px solid color-mix(in oklab, var(--p-ink) 18%, transparent); border-radius: var(--r-sm);
+  padding: 12px 14px; min-height: 48px; width: 100%;
+}
+.field textarea { min-height: 120px; resize: vertical; }
+.field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--p-action); outline-offset: 2px; }
+.form-status { min-height: 1.5em; font-size: 14px; color: var(--p-muted); margin: var(--s-3) 0 0; }
+.out { white-space: pre-wrap; word-break: break-word; font: 400 14px/1.5 var(--font-mono); background: var(--p-surface);
+  border-radius: var(--r-md); padding: var(--s-4); margin-top: var(--s-4); }
+.out[hidden] { display: none; }
+.list-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-2); max-width: 720px; }
+.list-rows li { background: var(--p-surface); border-radius: var(--r-md); padding: var(--s-3) var(--s-4); }
+.review { background: var(--p-surface); border-radius: var(--r-md); padding: var(--s-4); margin-bottom: var(--s-3); max-width: 720px; }
+.review .who { font-weight: 500; margin-bottom: var(--s-1); }
+.kv { display: grid; grid-template-columns: 160px 1fr; gap: var(--s-2) var(--s-4); margin: 0; max-width: 720px; }
+.kv dt { color: var(--p-muted); }
+.kv dd { margin: 0; font-weight: 500; word-break: break-word; }
+table.data { width: 100%; border-collapse: collapse; font-size: 14px; max-width: 980px; }
+table.data th, table.data td { text-align: left; padding: var(--s-2) var(--s-3); border-bottom: 1px solid color-mix(in oklab, var(--p-ink) 12%, transparent); word-break: break-all; vertical-align: top; }
+table.data th { color: var(--p-muted); font-weight: 500; }
+.row-gap { display: flex; gap: var(--s-3); flex-wrap: wrap; align-items: center; }
+.narrow { max-width: 560px; }
