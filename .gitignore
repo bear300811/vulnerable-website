@@ -1,0 +1,9 @@
+# Design-skill install and build artifacts (not part of the site)
+.agents/
+.claude/
+skills-lock.json
+public/.taste-skill/
+public/shots/
+node_modules/
+uploads/*
+!uploads/.gitkeep
