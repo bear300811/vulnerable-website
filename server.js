@@ -219,4 +219,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(8000, '127.0.0.1', () => console.log('http://127.0.0.1:8000'));
+// Local default is 127.0.0.1:8000. Docker sets HOST=0.0.0.0 so the published port is reachable.
+const HOST = process.env.HOST || '127.0.0.1';
+const PORT = Number(process.env.PORT || 8000);
+server.listen(PORT, HOST, () => console.log(`http://${HOST}:${PORT}`));

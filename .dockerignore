@@ -1,0 +1,13 @@
+# Keep the answer key, git data and local tooling out of the image.
+ANSWER_KEY.md
+.git
+.gitignore
+.agents
+.claude
+skills-lock.json
+README.md
+node_modules
+files
+uploads
+public/.taste-skill
+public/shots
