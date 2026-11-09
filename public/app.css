@@ -28,3 +28,4 @@ table.data th, table.data td { text-align: left; padding: var(--s-2) var(--s-3);
 table.data th { color: var(--p-muted); font-weight: 500; }
 .row-gap { display: flex; gap: var(--s-3); flex-wrap: wrap; align-items: center; }
 .narrow { max-width: 560px; }
+.note { background: var(--p-surface); border-left: 3px solid var(--p-action); border-radius: var(--r-sm); padding: var(--s-3) var(--s-4); font-size: 14px; max-width: 560px; }

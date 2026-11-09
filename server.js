@@ -76,6 +76,19 @@ api['POST /api/login'] = async (req, res) => {
   return json(res, 200, { ok: true, username: row.username }, { 'Set-Cookie': `session=${tok}; Path=/` });
 };
 
+// Mass assignment: the client chooses its own role on sign-up
+api['POST /api/register'] = async (req, res) => {
+  const f = await readForm(req);
+  if (!f.username || !f.password) return json(res, 400, { error: '아이디와 비밀번호를 입력하세요.' });
+  if (db.prepare('SELECT id FROM users WHERE username=?').get(f.username)) {
+    return json(res, 409, { error: '이미 사용 중인 아이디입니다.' });
+  }
+  const role = f.role || 'user';
+  const info = db.prepare('INSERT INTO users(username,password,role,email,balance,secret) VALUES(?,?,?,?,?,?)')
+    .run(f.username, md5(f.password), role, `${f.username}@hearthfile.example`, 1000, `${f.username}의 비공개 메모`);
+  return json(res, 201, { ok: true, id: Number(info.lastInsertRowid), username: f.username });
+};
+
 api['GET /api/search'] = (req, res, q) => {
   const rows = db.prepare('SELECT username FROM users WHERE username LIKE ?').all(`%${q.get('q') || ''}%`);
   return json(res, 200, { results: rows.map((r) => r.username) });

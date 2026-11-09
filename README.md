@@ -21,7 +21,7 @@ Node.js 22.13 이상이 필요합니다(`node:sqlite` 사용). 실행 시 SQLite
 
 ## 페이지
 
-`/` (홈), `/login.html`, `/search.html`, `/reviews.html`, `/profile.html`, `/account.html`, `/admin.html`, `/tools.html`, `/upload.html`
+`/` (홈), `/login.html`, `/register.html`, `/search.html`, `/reviews.html`, `/profile.html`, `/account.html`, `/admin.html`, `/tools.html`, `/upload.html`
 
 ## 취약점 목록
 
@@ -44,11 +44,12 @@ Node.js 22.13 이상이 필요합니다(`node:sqlite` 사용). 실행 시 SQLite
 | 15 | 민감 정보 노출 (시크릿 키, 사용자 비밀번호 해시) | `GET /api/debug` | CWE-200 / A05:2021 Security Misconfiguration |
 | 16 | 상세 에러 노출 (스택 트레이스) | 모든 API의 예외 처리 (500 응답) | CWE-209 / A05:2021 Security Misconfiguration |
 | 17 | 공격표면 힌트 노출 | `GET /robots.txt` (`/admin.html`, `/api/debug` 등 나열) | CWE-200 |
+| 18 | 대량 할당 (회원가입 시 권한 지정) | `POST /api/register` (`role`) | CWE-915 / A01:2021 Broken Access Control |
 
 ## 공격표면 요약
 
 - 정적 페이지: 위 페이지 목록
-- API: `/api/login`, `/api/search`, `/api/comments`, `/api/profile`, `/api/account`, `/api/transfer`, `/api/admin`, `/api/ping`, `/api/file`, `/api/fetch`, `/api/upload`, `/api/debug`
+- API: `/api/register`, `/api/login`, `/api/search`, `/api/comments`, `/api/profile`, `/api/account`, `/api/transfer`, `/api/admin`, `/api/ping`, `/api/file`, `/api/fetch`, `/api/upload`, `/api/debug`
 - 기타: `/redirect`, `/uploads/<경로>`, `/robots.txt`
 - 인증: 로그인 후 `session` 쿠키(Base64 JSON, 서명 없음)로 사용자 식별
 
